@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CYRUS Shop | فروشگاه خدمات دیجیتال</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold: #E8960A;
+      --gold-light: #F5C842;
+      --gold-dark: #B87208;
+      --purple: #6B3FA0;
+      --purple-light: #8B5CC8;
+      --purple-glow: #A87EE0;
+      --bg-dark: #1C1828;
+      --bg-card: #252235;
+      --bg-card2: #2E2A42;
+      --text-primary: #F5F0FF;
+      --text-secondary: #A89FC0;
+      --border: #3A3550;
+      --accent: #FF6B9D;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Vazirmatn', sans-serif; background: var(--bg-dark); color: var(--text-primary); overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-dark); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* PARTICLES */
+    #particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+
+    /* NAVBAR */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      background: rgba(28,24,40,0.9); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border); padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between; height: 70px;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--gold), var(--purple-light));
+      border-radius: 12px; display: flex; align-items: center; justify-content: center;
+      font-size: 22px; font-weight: 900; color: white;
+      box-shadow: 0 0 20px rgba(232,150,10,0.5);
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+    @keyframes logoPulse { 0%,100%{box-shadow:0 0 20px rgba(232,150,10,0.5)} 50%{box-shadow:0 0 40px rgba(232,150,10,0.9)} }
+    .logo-text span:first-child {
+      font-size: 20px; font-weight: 900;
+      background: linear-gradient(90deg, var(--gold), var(--purple-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 3px;
+      display: block;
+    }
+    .logo-text span:last-child { font-size: 10px; color: var(--text-secondary); letter-spacing: 1px; display: block; }
+    .nav-links { display: flex; gap: 30px; list-style: none; }
+    .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.3s; position: relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; right:0; height:2px; background:var(--gold); transform:scaleX(0); transition:transform 0.3s; }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { transform:scaleX(1); }
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+    .btn-cart {
+      background: rgba(232,150,10,0.1); border: 1px solid rgba(232,150,10,0.4);
+      color: var(--gold); padding: 8px 18px; border-radius: 25px; cursor: pointer;
+      font-family: 'Vazirmatn', sans-serif; font-size: 13px; font-weight: 600;
+      transition: all 0.3s; position: relative;
+    }
+    .btn-cart:hover { background: rgba(232,150,10,0.2); transform: translateY(-2px); }
+    .cart-badge {
+      position: absolute; top: -8px; right: -8px; background: var(--accent); color: white;
+      width: 20px; height: 20px; border-radius: 50%; font-size: 11px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      animation: badgePop 0.3s ease;
+    }
+    @keyframes badgePop { 0%{transform:scale(0)} 70%{transform:scale(1.3)} 100%{transform:scale(1)} }
+    .btn-telegram {
+      background: linear-gradient(135deg, #229ED9, #0088cc); color: white; border: none;
+      padding: 8px 18px; border-radius: 25px; cursor: pointer; font-family: 'Vazirmatn', sans-serif;
+      font-size: 13px; font-weight: 600; transition: all 0.3s;
+    }
+    .btn-telegram:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,136,204,0.5); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center;
+      position: relative; overflow: hidden; padding: 100px 5% 60px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 70% at 80% 50%, rgba(107,63,160,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 10% 20%, rgba(232,150,10,0.12) 0%, transparent 50%),
+        radial-gradient(ellipse 40% 40% at 50% 90%, rgba(255,107,157,0.1) 0%, transparent 50%);
+    }
+    .floating-orb {
+      position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none;
+    }
+    .orb1 { width:400px;height:400px;background:rgba(107,63,160,0.2);top:-100px;right:-100px;animation:orbFloat 8s ease-in-out infinite; }
+    .orb2 { width:300px;height:300px;background:rgba(232,150,10,0.1);bottom:-50px;left:-50px;animation:orbFloat 10s ease-in-out infinite reverse; }
+    .orb3 { width:200px;height:200px;background:rgba(255,107,157,0.1);top:50%;left:40%;animation:orbFloat 6s ease-in-out infinite; }
+    @keyframes orbFloat { 0%,100%{transform:translateY(0) scale(1)} 50%{transform:translateY(-30px) scale(1.1)} }
+
+    .hero-content { position: relative; z-index: 1; max-width: 620px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(232,150,10,0.15); border: 1px solid rgba(232,150,10,0.4);
+      padding: 8px 18px; border-radius: 50px; font-size: 12px; color: var(--gold);
+      margin-bottom: 28px; animation: fadeInDown 0.8s ease;
+    }
+    .hero-badge .dot { width:8px;height:8px;background:var(--gold);border-radius:50%;animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
+    @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeInLeft { from{opacity:0;transform:translateX(-30px)} to{opacity:1;transform:translateX(0)} }
+
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 68px); font-weight: 900; line-height: 1.15;
+      margin-bottom: 24px; animation: fadeInUp 0.8s ease 0.2s both;
+    }
+    .hero h1 .gold {
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero h1 .purple {
+      background: linear-gradient(90deg, var(--purple-light), var(--purple-glow));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p { font-size: 16px; color: var(--text-secondary); line-height: 1.9; margin-bottom: 40px; animation: fadeInUp 0.8s ease 0.4s both; }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; animation: fadeInUp 0.8s ease 0.6s both; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: #1C1828;
+      border: none; padding: 15px 32px; border-radius: 14px; font-family: 'Vazirmatn', sans-serif;
+      font-size: 15px; font-weight: 800; cursor: pointer; transition: all 0.3s;
+      box-shadow: 0 8px 30px rgba(232,150,10,0.4);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(232,150,10,0.6); }
+    .btn-secondary {
+      background: rgba(139,92,200,0.15); border: 1px solid var(--purple-light);
+      color: var(--purple-glow); padding: 15px 32px; border-radius: 14px;
+      font-family: 'Vazirmatn', sans-serif; font-size: 15px; font-weight: 600;
+      cursor: pointer; transition: all 0.3s;
+    }
+    .btn-secondary:hover { background: rgba(139,92,200,0.3); transform: translateY(-3px); }
+
+    .hero-stats { display: flex; gap: 40px; margin-top: 50px; padding-top: 36px; border-top: 1px solid var(--border); animation: fadeInUp 0.8s ease 0.8s both; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 30px; font-weight: 900; background: linear-gradient(90deg, var(--gold), var(--purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .stat-label { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+
+    /* SPINNING WHEEL */
+    .wheel-section { padding: 60px 5%; text-align: center; position: relative; z-index: 1; }
+    .wheel-container { position: relative; width: 320px; height: 320px; margin: 0 auto 40px; }
+    .wheel { width: 100%; height: 100%; border-radius: 50%; position: relative; animation: wheelSpin 20s linear infinite; cursor: pointer; }
+    .wheel:hover { animation-play-state: paused; }
+    @keyframes wheelSpin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    .wheel-segment {
+      position: absolute; width: 50%; height: 50%; transform-origin: 100% 100%;
+      display: flex; align-items: center; justify-content: flex-start; padding: 20px;
+      font-size: 12px; font-weight: 700; color: white;
+    }
+    .wheel-center {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 80px; height: 80px; background: var(--bg-dark); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; z-index: 10; border: 3px solid var(--gold);
+      box-shadow: 0 0 30px rgba(232,150,10,0.5);
+    }
+
+    /* SECTION */
+    .section { padding: 80px 5%; position: relative; z-index: 1; }
+    .section-header { text-align: center; margin-bottom: 50px; }
+    .section-eyebrow { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    .section-title { font-size: clamp(26px, 4vw, 42px); font-weight: 900; }
+    .section-title .accent { background: linear-gradient(90deg, var(--gold), var(--purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .section-subtitle { font-size: 15px; color: var(--text-secondary); margin-top: 12px; }
+
+    /* CATEGORIES */
+    .categories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; }
+    .cat-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 24px 16px; text-align: center; cursor: pointer; transition: all 0.4s;
+      text-decoration: none; color: inherit; position: relative; overflow: hidden;
+    }
+    .cat-card::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(232,150,10,0.05),rgba(139,92,200,0.05)); opacity:0; transition:opacity 0.3s; }
+    .cat-card:hover::before { opacity:1; }
+    .cat-card:hover { border-color: var(--gold); transform: translateY(-6px) scale(1.02); box-shadow: 0 15px 40px rgba(232,150,10,0.2); }
+    .cat-icon { font-size: 36px; margin-bottom: 12px; display: block; transition: transform 0.3s; }
+    .cat-card:hover .cat-icon { transform: scale(1.2) rotate(5deg); }
+    .cat-name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+    .cat-count { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+
+    /* FILTER */
+    .filter-tabs { display: flex; gap: 10px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 8px; flex-wrap: wrap; }
+    .filter-tab {
+      background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary);
+      padding: 9px 20px; border-radius: 25px; font-family: 'Vazirmatn', sans-serif;
+      font-size: 13px; cursor: pointer; white-space: nowrap; transition: all 0.3s; font-weight: 500;
+    }
+    .filter-tab.active, .filter-tab:hover { background: rgba(232,150,10,0.15); border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    /* PRODUCTS */
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 22px; }
+    .product-card {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
+      overflow: hidden; transition: all 0.4s; cursor: pointer; position: relative;
+    }
+    .product-card::after { content:''; position:absolute; inset:0; border-radius:20px; background:linear-gradient(135deg,rgba(232,150,10,0),rgba(139,92,200,0)); transition:background 0.4s; pointer-events:none; }
+    .product-card:hover { border-color: rgba(232,150,10,0.5); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+    .product-card:hover::after { background:linear-gradient(135deg,rgba(232,150,10,0.03),rgba(139,92,200,0.05)); }
+    .product-header { padding: 28px; text-align: center; background: linear-gradient(160deg, var(--bg-card2), var(--bg-dark)); position: relative; }
+    .product-emoji { font-size: 52px; margin-bottom: 8px; display: block; transition: transform 0.3s; }
+    .product-card:hover .product-emoji { transform: scale(1.15) rotate(-5deg); }
+    .product-badge { position: absolute; top: 14px; right: 14px; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 20px; }
+    .product-badge.default { background: linear-gradient(135deg,var(--gold),var(--gold-dark)); color:#1C1828; }
+    .product-badge.new { background: linear-gradient(135deg,#00C853,#00951F); color:white; }
+    .product-badge.hot { background: linear-gradient(135deg,#FF3D00,#CC2200); color:white; }
+    .product-body { padding: 20px; }
+    .product-name { font-size: 15px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+    .product-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 4px; }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-top: 1px solid var(--border); gap: 10px; }
+    .product-price { font-size: 15px; font-weight: 800; color: var(--gold); }
+    .product-price span { font-size: 10px; color: var(--text-secondary); font-weight: 400; margin-right: 3px; display: block; }
+    .product-actions { display: flex; gap: 8px; }
+    .btn-add {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: #1C1828;
+      border: none; padding: 8px 16px; border-radius: 10px; font-family: 'Vazirmatn', sans-serif;
+      font-size: 12px; font-weight: 800; cursor: pointer; transition: all 0.3s;
+    }
+    .btn-add:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(232,150,10,0.4); }
+    .btn-cart-add {
+      background: rgba(139,92,200,0.15); border: 1px solid var(--purple-light);
+      color: var(--purple-glow); padding: 8px 12px; border-radius: 10px;
+      font-family: 'Vazirmatn', sans-serif; font-size: 12px; cursor: pointer; transition: all 0.3s;
+    }
+    .btn-cart-add:hover { background: rgba(139,92,200,0.3); }
+
+    /* STEPS */
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+    .step {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
+      padding: 32px; position: relative; overflow: hidden; transition: all 0.3s;
+    }
+    .step:hover { border-color: var(--gold); transform: translateY(-4px); }
+    .step-num { font-size: 60px; font-weight: 900; opacity: 0.06; position: absolute; top: 10px; left: 16px; background: linear-gradient(90deg, var(--gold), var(--purple-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .step-icon { font-size: 36px; margin-bottom: 16px; }
+    .step-title { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+    .step-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
+
+    /* PAYMENT */
+    .payment-section { background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; padding: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
+    .payment-title { font-size: 28px; font-weight: 900; margin-bottom: 14px; }
+    .payment-methods { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+    .pay-method {
+      display: flex; align-items: center; gap: 14px; background: var(--bg-card2);
+      border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px;
+      transition: all 0.3s; cursor: default;
+    }
+    .pay-method:hover { border-color: var(--gold); transform: translateX(-4px); }
+    .pay-icon { font-size: 26px; }
+    .pay-info { flex: 1; }
+    .pay-name { font-size: 14px; font-weight: 700; }
+    .pay-note { font-size: 10px; color: var(--text-secondary); margin-top: 3px; word-break: break-all; }
+    .pay-status { font-size: 11px; color: #00E676; font-weight: 700; }
+
+    /* TELEGRAM */
+    .telegram-section {
+      background: linear-gradient(135deg, rgba(0,136,204,0.12), rgba(107,63,160,0.15));
+      border: 1px solid rgba(0,136,204,0.3); border-radius: 24px; padding: 56px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .tg-glow { position:absolute; top:-100px; left:50%; transform:translateX(-50%); width:400px; height:400px; background:radial-gradient(circle,rgba(0,136,204,0.15) 0%,transparent 70%); pointer-events:none; }
+    .tg-icon { font-size: 72px; margin-bottom: 24px; display: block; animation: tgFloat 3s ease-in-out infinite; }
+    @keyframes tgFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+    .tg-title { font-size: 32px; font-weight: 900; margin-bottom: 14px; }
+    .tg-desc { font-size: 15px; color: var(--text-secondary); max-width: 500px; margin: 0 auto 32px; line-height: 1.9; }
+    .tg-features { display: flex; justify-content: center; gap: 24px; margin-bottom: 36px; flex-wrap: wrap; }
+    .tg-feat { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); background: rgba(0,136,204,0.1); padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(0,136,204,0.2); }
+    .tg-feat::before { content: '✓'; color: #229ED9; font-weight: 800; }
+    .btn-tg-big {
+      background: linear-gradient(135deg, #229ED9, #0066AA); color: white; border: none;
+      padding: 18px 44px; border-radius: 14px; font-family: 'Vazirmatn', sans-serif;
+      font-size: 17px; font-weight: 800; cursor: pointer; transition: all 0.3s;
+      box-shadow: 0 8px 30px rgba(0,136,204,0.4);
+    }
+    .btn-tg-big:hover { transform: translateY(-4px); box-shadow: 0 16px 50px rgba(0,136,204,0.6); }
+
+    /* MODAL */
+    .modal-overlay { display: none; position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--bg-card2); border: 1px solid var(--border); border-radius: 24px; padding: 36px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; animation: modalIn 0.3s ease; }
+    @keyframes modalIn { from{opacity:0;transform:scale(0.9)} to{opacity:1;transform:scale(1)} }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 26px; }
+    .modal-title { font-size: 22px; font-weight: 800; }
+    .modal-close { background: var(--bg-dark); border: 1px solid var(--border); color: var(--text-secondary); width: 36px; height: 36px; border-radius: 10px; cursor: pointer; font-size: 16px; transition: all 0.3s; }
+    .modal-close:hover { border-color: #ff4444; color: #ff4444; }
+    .order-product { display: flex; gap: 18px; background: var(--bg-dark); border-radius: 16px; padding: 18px; margin-bottom: 26px; border: 1px solid var(--border); }
+    .order-emoji { font-size: 44px; }
+    .order-name { font-size: 17px; font-weight: 700; }
+    .order-price { font-size: 24px; font-weight: 900; color: var(--gold); margin-top: 6px; }
+    .form-group { margin-bottom: 18px; }
+    .form-label { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; display: block; font-weight: 600; }
+    .form-input { width: 100%; background: var(--bg-dark); border: 1px solid var(--border); color: var(--text-primary); padding: 13px 16px; border-radius: 12px; font-family: 'Vazirmatn', sans-serif; font-size: 14px; outline: none; transition: border 0.3s; }
+    .form-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(232,150,10,0.1); }
+    .payment-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+    .pay-tab { flex: 1; padding: 11px; border-radius: 12px; text-align: center; border: 1px solid var(--border); cursor: pointer; font-size: 12px; color: var(--text-secondary); transition: all 0.3s; font-family: 'Vazirmatn', sans-serif; font-weight: 600; }
+    .pay-tab.active { border-color: var(--gold); color: var(--gold); background: rgba(232,150,10,0.1); }
+    .card-info { background: var(--bg-dark); border: 1px solid var(--border); border-radius: 14px; padding: 18px; margin-bottom: 18px; font-size: 13px; line-height: 1.9; }
+    .card-num { font-size: 20px; font-weight: 800; color: var(--gold); letter-spacing: 2px; margin-top: 4px; }
+    .btn-order { width: 100%; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: #1C1828; border: none; padding: 16px; border-radius: 14px; font-family: 'Vazirmatn', sans-serif; font-size: 16px; font-weight: 800; cursor: pointer; transition: all 0.3s; margin-top: 8px; }
+    .btn-order:hover { box-shadow: 0 8px 30px rgba(232,150,10,0.5); transform: translateY(-2px); }
+
+    /* CART SIDEBAR */
+    .cart-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:8999; backdrop-filter:blur(4px); }
+    .cart-overlay.open { display:block; }
+    .cart-sidebar { position: fixed; left: 0; top: 0; width: 380px; height: 100vh; background: var(--bg-card2); border-right: 1px solid var(--border); z-index: 9000; transform: translateX(-100%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; }
+    .cart-sidebar.open { transform: translateX(0); }
+    .cart-header { padding: 26px 22px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--bg-dark); }
+    .cart-title { font-size: 20px; font-weight: 800; }
+    .cart-count { background: var(--accent); color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
+    .cart-items { flex: 1; overflow-y: auto; padding: 20px; }
+    .cart-item { background: var(--bg-dark); border: 1px solid var(--border); border-radius: 14px; padding: 14px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px; transition: all 0.3s; }
+    .cart-item:hover { border-color: var(--gold); }
+    .ci-emoji { font-size: 28px; }
+    .ci-info { flex: 1; }
+    .ci-name { font-size: 13px; font-weight: 700; line-height: 1.3; }
+    .ci-price { font-size: 13px; color: var(--gold); font-weight: 700; margin-top: 4px; }
+    .ci-remove { background: rgba(255,68,68,0.1); border: 1px solid rgba(255,68,68,0.3); color: #ff4444; cursor: pointer; width: 28px; height: 28px; border-radius: 8px; font-size: 14px; transition: all 0.3s; }
+    .ci-remove:hover { background: rgba(255,68,68,0.2); }
+    .cart-footer { padding: 22px; border-top: 1px solid var(--border); background: var(--bg-dark); }
+    .cart-total { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+    .cart-total-label { color: var(--text-secondary); font-size: 15px; }
+    .cart-total-val { font-size: 22px; font-weight: 900; color: var(--gold); }
+    .cart-empty { text-align: center; padding: 60px 20px; color: var(--text-secondary); }
+    .cart-empty-icon { font-size: 64px; margin-bottom: 16px; opacity: 0.5; }
+
+    /* FOOTER */
+    footer { background: var(--bg-card); border-top: 1px solid var(--border); padding: 56px 5% 32px; position: relative; z-index: 1; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 44px; margin-bottom: 44px; }
+    .footer-brand p { font-size: 13px; color: var(--text-secondary); line-height: 1.9; margin-top: 16px; max-width: 280px; }
+    .footer-col h4 { font-size: 14px; font-weight: 800; margin-bottom: 18px; color: var(--gold); }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 12px; }
+    .footer-col a { color: var(--text-secondary); text-decoration: none; font-size: 13px; transition: color 0.3s; }
+    .footer-col a:hover { color: var(--text-primary); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 26px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+    .footer-copy { font-size: 12px; color: var(--text-secondary); }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 30px; right: 30px; z-index: 99999; background: var(--bg-card2); border: 1px solid var(--gold); border-radius: 14px; padding: 16px 22px; display: flex; align-items: center; gap: 12px; transform: translateX(200%); transition: transform 0.4s cubic-bezier(0.4,0,0.2,1); box-shadow: 0 12px 40px rgba(0,0,0,0.5); min-width: 250px; }
+    .toast.show { transform: translateX(0); }
+    .toast-icon { font-size: 22px; }
+    .toast-text { font-size: 14px; font-weight: 600; }
+
+    @media (max-width: 768px) {
+      .hero-stats { gap: 24px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .payment-section { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .cart-sidebar { width: 100%; }
+      .telegram-section { padding: 36px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">C</div>
+    <div class="logo-text">
+      <span>CYRUS</span>
+      <span>DIGITAL SHOP</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">محصولات</a></li>
+    <li><a href="#how">نحوه خرید</a></li>
+    <li><a href="#payment">پرداخت</a></li>
+    <li><a href="#telegram">تلگرام</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn-cart" onclick="toggleCart()">
+      🛒 سبد خرید
+      <span class="cart-badge" id="cartBadge">0</span>
+    </button>
+    <button class="btn-telegram" onclick="openTelegram()">✈️ ربات تلگرام</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="floating-orb orb1"></div>
+  <div class="floating-orb orb2"></div>
+  <div class="floating-orb orb3"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="dot"></span> فروشگاه خدمات دیجیتال — CYRUS Shop</div>
+    <h1>بهترین خدمات<br><span class="gold">دیجیتال</span> در <span class="purple">یک جا</span></h1>
+    <p>از پریمیوم تلگرام تا شارژ پابجی، از فیلترشکن تا ChatGPT — همه چیز با تحویل فوری و بهترین قیمت</p>
+    <div class="hero-buttons">
+      <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">🛒 مشاهده محصولات</button>
+      <button class="btn-secondary" onclick="openTelegram()">✈️ خرید از ربات</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num" id="s1">0</div><div class="stat-label">مشتری راضی</div></div>
+      <div class="stat"><div class="stat-num" id="s2">0</div><div class="stat-label">محصول دیجیتال</div></div>
+      <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">پشتیبانی آنلاین</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">دسته‌بندی‌ها</div>
+    <h2 class="section-title">همه <span class="accent">خدمات دیجیتال</span></h2>
+    <p class="section-subtitle">بیش از ۲۰۰ سرویس در ۱۰ دسته‌بندی مختلف</p>
+  </div>
+  <div class="categories-grid">
+    <a class="cat-card" href="#" onclick="filterProducts('telegram',null);return false;"><span class="cat-icon">✈️</span><div class="cat-name">تلگرام</div><div class="cat-count">پریمیوم • استار</div></a>
+    <a class="cat-card" href="#" onclick="filterProducts('member',null);return false;"><span class="cat-icon">👥</span><div class="cat-name">ممبر کانال</div><div class="cat-count">فیک • واقعی</div></a>
+    <a class="cat-card" href="#" onclick="filterProducts('view',null);return false;"><span class="cat-icon">👁️</span><div class="cat-name">بازدید</div><div class="cat-count">پست • استوری</div></a>
+    <a class="cat-card" href="#" onclick="filterProducts('game',null);return false;"><span class="cat-icon">🎮</span><div class="cat-name">بازی</div><div class="cat-count">پابجی • کالاف</div></a>
+    <a class="cat-card" href="#" onclick="filterProducts('vpn',null);return false;"><span class="cat-icon">🛡️</span><div class="cat-name">فیلترشکن</div><div class="cat-count">VPN • وایرگارد</div></a>
+    <a class="cat-card" href="#" onclick="filterProducts('ai',null);return false;"><span class="cat-icon">🤖</span><div class="cat-name">هوش مصنوعی</div><div class="cat-count">ChatGPT</div></a>
+    <a class="cat-card" href="#" onclick="filterProducts('instagram',null);return false;"><span class="cat-icon">📸</span><div class="cat-name">اینستاگرام</div><div class="cat-count">فالور • لایک</div></a>
+    <a class="cat-card" href="#" onclick="filterProducts('number',null);return false;"><span class="cat-icon">📞</span><div class="cat-name">شماره مجازی</div><div class="cat-count">دائمی • موقت</div></a>
+    <a class="cat-card" href="#" onclick="filterProducts('boost',null);return false;"><span class="cat-icon">🚀</span><div class="cat-name">بوست تلگرام</div><div class="cat-count">کانال • گروه</div></a>
+    <a class="cat-card" href="#" onclick="filterProducts('custom',null);return false;"><span class="cat-icon">🎯</span><div class="cat-name">سفارشی</div><div class="cat-count">هر خدمت دیجیتالی</div></a>
+  </div>
+</section>
+
+<section class="section" id="products" style="padding-top:0">
+  <div class="section-header">
+    <div class="section-eyebrow">محصولات</div>
+    <h2 class="section-title">پرفروش‌ترین <span class="accent">محصولات</span></h2>
+  </div>
+  <div class="filter-tabs">
+    <button class="filter-tab active" onclick="filterProducts('all',this)">همه</button>
+    <button class="filter-tab" onclick="filterProducts('telegram',this)">✈️ تلگرام</button>
+    <button class="filter-tab" onclick="filterProducts('member',this)">👥 ممبر</button>
+    <button class="filter-tab" onclick="filterProducts('view',this)">👁️ بازدید</button>
+    <button class="filter-tab" onclick="filterProducts('game',this)">🎮 بازی</button>
+    <button class="filter-tab" onclick="filterProducts('vpn',this)">🛡️ فیلترشکن</button>
+    <button class="filter-tab" onclick="filterProducts('ai',this)">🤖 ChatGPT</button>
+    <button class="filter-tab" onclick="filterProducts('instagram',this)">📸 اینستا</button>
+    <button class="filter-tab" onclick="filterProducts('boost',this)">🚀 بوست</button>
+    <button class="filter-tab" onclick="filterProducts('number',this)">📞 شماره</button>
+    <button class="filter-tab" onclick="filterProducts('custom',this)">🎯 سفارشی</button>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<section class="section" id="how" style="background: var(--bg-card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="section-header">
+    <div class="section-eyebrow">راهنما</div>
+    <h2 class="section-title">نحوه <span class="accent">خرید</span></h2>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-num">۱</div><div class="step-icon">🛒</div><div class="step-title">محصول انتخاب کن</div><div class="step-desc">از بین صدها سرویس دیجیتال، محصول موردنظرت رو انتخاب کن</div></div>
+    <div class="step"><div class="step-num">۲</div><div class="step-icon">💳</div><div class="step-title">پرداخت کن</div><div class="step-desc">کارت به کارت، تون‌کیپر یا USDT — هر روشی که راحت‌تری</div></div>
+    <div class="step"><div class="step-num">۳</div><div class="step-icon">📸</div><div class="step-title">رسید بفرست</div><div class="step-desc">رسید پرداخت رو در ربات تلگرام آپلود کن</div></div>
+    <div class="step"><div class="step-num">۴</div><div class="step-icon">⚡</div><div class="step-title">تحویل فوری</div><div class="step-desc">سرویس در کمترین زمان ممکن تحویل داده می‌شه</div></div>
+  </div>
+</section>
+
+<section class="section" id="payment">
+  <div class="section-header">
+    <div class="section-eyebrow">پرداخت</div>
+    <h2 class="section-title">روش‌های <span class="accent">پرداخت</span></h2>
+  </div>
+  <div class="payment-section">
+    <div>
+      <div class="payment-title">پرداخت امن و سریع 🔐</div>
+      <div class="payment-methods">
+        <div class="pay-method">
+          <div class="pay-icon">💳</div>
+          <div class="pay-info"><div class="pay-name">کارت به کارت</div><div class="pay-note">6219861921759196 — علی حسین یوسفی</div></div>
+          <div class="pay-status">✓ فعال</div>
+        </div>
+        <div class="pay-method">
+          <div class="pay-icon">💎</div>
+          <div class="pay-info"><div class="pay-name">تون‌کیپر (TON)</div><div class="pay-note">UQCFJ2uBq42ubwT49_3yqh-x_Ado6JFiYVxKzn5tc0X6b2SI</div></div>
+          <div class="pay-status">✓ فعال</div>
+        </div>
+        <div class="pay-method">
+          <div class="pay-icon">₿</div>
+          <div class="pay-info"><div class="pay-name">USDT (TRC20)</div><div class="pay-note">TQDsqa6gs916BnNGi8E2DpnWNfnHuTovNc</div></div>
+          <div class="pay-status">✓ فعال</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <div style="font-size:90px;margin-bottom:20px;animation:orbFloat 4s ease-in-out infinite">🔐</div>
+      <div style="font-size:20px;font-weight:800;margin-bottom:10px">تضمین بازگشت وجه</div>
+      <div style="font-size:14px;color:var(--text-secondary);line-height:1.9">اگه سرویس دریافت نکردی<br>کاملاً پول برمی‌گرده</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="telegram">
+  <div class="telegram-section">
+    <div class="tg-glow"></div>
+    <span class="tg-icon">🤖</span>
+    <div class="tg-title">ربات تلگرام CYRUS Shop</div>
+    <div class="tg-desc">همه خدمات رو مستقیم از تلگرام سفارش بده! ربات هوشمند ما ۲۴ ساعته آماده‌ست و سفارشت رو فوری پردازش می‌کنه</div>
+    <div class="tg-features">
+      <div class="tg-feat">سفارش فوری</div>
+      <div class="tg-feat">پاسخ خودکار</div>
+      <div class="tg-feat">اطلاع‌رسانی</div>
+      <div class="tg-feat">پشتیبانی ادمین</div>
+      <div class="tg-feat">۲۴/۷ آنلاین</div>
+    </div>
+    <button class="btn-tg-big" onclick="openTelegram()">✈️ ورود به ربات تلگرام</button>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="display:flex;margin-bottom:16px">
+        <div class="logo-icon" style="width:36px;height:36px;font-size:16px">C</div>
+        <div class="logo-text"><span style="font-size:16px">CYRUS</span><span>DIGITAL SHOP</span></div>
+      </a>
+      <p>بزرگترین فروشگاه خدمات دیجیتال — تحویل فوری، قیمت مناسب، پشتیبانی ۲۴/۷</p>
+    </div>
+    <div class="footer-col">
+      <h4>خدمات</h4>
+      <ul>
+        <li><a href="#">تلگرام پریمیوم</a></li>
+        <li><a href="#">ممبر کانال</a></li>
+        <li><a href="#">فیلترشکن</a></li>
+        <li><a href="#">ChatGPT</a></li>
+        <li><a href="#">اینستاگرام</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>پشتیبانی</h4>
+      <ul>
+        <li><a href="https://t.me/CYRU_SHOP" target="_blank">کانال تلگرام</a></li>
+        <li><a href="https://t.me/CyruShop_bot" target="_blank">ربات تلگرام</a></li>
+        <li><a href="#">تماس با ما</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>حقوقی</h4>
+      <ul>
+        <li><a href="#">قوانین و مقررات</a></li>
+        <li><a href="#">حریم خصوصی</a></li>
+        <li><a href="#">بازگشت وجه</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© ۱۴۰۴ CYRUS Shop — تمام حقوق محفوظ است</div>
+    <div style="font-size:12px;color:var(--text-secondary)">ساخته شده با ❤️</div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="orderModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🛒 ثبت سفارش</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="orderProductInfo"></div>
+    <div class="form-group">
+      <label class="form-label">آیدی تلگرام یا اطلاعات اکانت</label>
+      <input class="form-input" id="orderContact" placeholder="@username یا لینک کانال">
+    </div>
+    <div class="form-group">
+      <label class="form-label">توضیحات (اختیاری)</label>
+      <input class="form-input" id="orderNote" placeholder="هر توضیح اضافه‌ای">
+    </div>
+    <div class="form-group">
+      <label class="form-label">روش پرداخت</label>
+      <div class="payment-tabs">
+        <div class="pay-tab active" onclick="selectPayTab(this,'card')">💳 کارت</div>
+        <div class="pay-tab" onclick="selectPayTab(this,'ton')">💎 تون</div>
+        <div class="pay-tab" onclick="selectPayTab(this,'usdt')">₿ USDT</div>
+      </div>
+    </div>
+    <div id="payDetails">
+      <div class="card-info">
+        <div style="color:var(--text-secondary);font-size:12px">شماره کارت:</div>
+        <div class="card-num">6219861921759196</div>
+        <div style="margin-top:6px;color:var(--text-secondary)">به نام: علی حسین یوسفی</div>
+        <div style="margin-top:8px;color:var(--gold);font-size:12px">⚡ بعد از واریز رسید رو در ربات بفرست</div>
+      </div>
+    </div>
+    <button class="btn-order" onclick="submitOrder()">✅ ثبت سفارش و رفتن به ربات</button>
+  </div>
+</div>
+
+<!-- CART -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="cart-title">سبد خرید</div>
+      <div class="cart-count" id="cartCount">0</div>
+    </div>
+    <button class="modal-close" onclick="toggleCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty"><div class="cart-empty-icon">🛒</div>سبد خرید خالیه!</div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span class="cart-total-label">جمع کل:</span>
+      <span class="cart-total-val" id="cartTotal">۰ تومان</span>
+    </div>
+    <button class="btn-order" onclick="checkoutCart()">💳 پرداخت و ثبت سفارش</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <span class="toast-icon" id="toastIcon">✅</span>
+  <span class="toast-text" id="toastText"></span>
+</div>
+
+<script>
+// PARTICLES
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+const particles = [];
+for(let i = 0; i < 80; i++) {
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: Math.random() * 2 + 0.5,
+    speedX: (Math.random() - 0.5) * 0.4,
+    speedY: (Math.random() - 0.5) * 0.4,
+    opacity: Math.random() * 0.5 + 0.1,
+    color: Math.random() > 0.5 ? '#E8960A' : '#8B5CC8'
+  });
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => {
+    p.x += p.speedX; p.y += p.speedY;
+    if(p.x < 0) p.x = canvas.width;
+    if(p.x > canvas.width) p.x = 0;
+    if(p.y < 0) p.y = canvas.height;
+    if(p.y > canvas.height) p.y = 0;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fillStyle = p.color + Math.floor(p.opacity * 255).toString(16).padStart(2,'0');
+    ctx.fill();
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// COUNTER ANIMATION
+function animateCounter(el, target, suffix='') {
+  let start = 0;
+  const duration = 2000;
+  const step = timestamp => {
+    if(!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    el.textContent = '+' + Math.floor(progress * target).toLocaleString('fa') + suffix;
+    if(progress < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      animateCounter(document.getElementById('s1'), 5000);
+      animateCounter(document.getElementById('s2'), 200);
+      observer.disconnect();
+    }
+  });
+});
+observer.observe(document.getElementById('s1'));
+
+// PRODUCTS DATA
+const products = [
+  {id:1,name:'پریمیوم تلگرام ۱ ماهه',emoji:'⭐',desc:'اشتراک ۱ ماهه — بدون تبلیغ، استیکر بیشتر',price:'1,250,000',priceNum:1250000,badge:'پرفروش',category:'telegram'},
+  {id:2,name:'پریمیوم تلگرام ۳ ماهه',emoji:'💎',desc:'اشتراک ۳ ماهه با تخفیف ویژه',price:'2,500,000',priceNum:2500000,badge:'',category:'telegram'},
+  {id:3,name:'پریمیوم تلگرام ۶ ماهه',emoji:'👑',desc:'اشتراک ۶ ماهه',price:'3,000,000',priceNum:3000000,badge:'',category:'telegram'},
+  {id:4,name:'پریمیوم تلگرام سالانه',emoji:'🏆',desc:'اشتراک ۱ ساله — بهترین ارزش',price:'5,400,000',priceNum:5400000,badge:'hot',category:'telegram'},
+  {id:5,name:'50 استار تلگرام',emoji:'🌟',desc:'۵۰ استار تلگرام',price:'169,600',priceNum:169600,badge:'',category:'telegram'},
+  {id:6,name:'100 استار تلگرام',emoji:'✨',desc:'۱۰۰ استار تلگرام',price:'339,200',priceNum:339200,badge:'',category:'telegram'},
+  {id:7,name:'500 استار تلگرام',emoji:'💫',desc:'۵۰۰ استار تلگرام',price:'1,696,000',priceNum:1696000,badge:'پرفروش',category:'telegram'},
+  {id:8,name:'1000 استار تلگرام',emoji:'⭐',desc:'۱۰۰۰ استار تلگرام',price:'3,392,000',priceNum:3392000,badge:'hot',category:'telegram'},
+  {id:9,name:'ChatGPT Go — 8$/ماه',emoji:'🤖',desc:'ChatGPT Go — مناسب برای استفاده روزمره',price:'1,200,000',priceNum:1200000,badge:'new',category:'ai'},
+  {id:10,name:'ChatGPT Plus — 20$/ماه',emoji:'🧠',desc:'ChatGPT Plus با GPT-4 — قدرتمندترین مدل',price:'2,900,000',priceNum:2900000,badge:'hot',category:'ai'},
+  {id:11,name:'ChatGPT Pro — 200$/ماه',emoji:'🚀',desc:'ChatGPT Pro — برای کاربران حرفه‌ای',price:'28,000,000',priceNum:28000000,badge:'',category:'ai'},
+  {id:12,name:'فیک ارزانترین ۱۰۰۰ عضو',emoji:'👥',desc:'فیک سرعتی — ارزانترین — ریزش بالا',price:'6,625',priceNum:6625,badge:'',category:'member'},
+  {id:13,name:'فیک ۷ روزه ۱۰۰۰ عضو',emoji:'👥',desc:'بدون ریزش ۷+ روز — تضمینی',price:'16,250',priceNum:16250,badge:'',category:'member'},
+  {id:14,name:'فیک ۱ ماهه ۱۰۰۰ عضو',emoji:'👥',desc:'بدون ریزش ۱+ ماه — کیفیت فوق‌العاده',price:'52,500',priceNum:52500,badge:'پرفروش',category:'member'},
+  {id:15,name:'فیک ۳ ماهه ۱۰۰۰ عضو',emoji:'👥',desc:'بدون ریزش ۳+ ماه — تضمینی',price:'53,750',priceNum:53750,badge:'',category:'member'},
+  {id:16,name:'فیک دائمی ۱۰۰۰ عضو',emoji:'♾️',desc:'فیک دائمی — بهترین ماندگاری',price:'92,500',priceNum:92500,badge:'hot',category:'member'},
+  {id:17,name:'فیک ایرانی ۳ ماهه',emoji:'🇮🇷',desc:'ممبر ایرانی بدون ریزش ۳+ ماه + بازدید',price:'80,625',priceNum:80625,badge:'',category:'member'},
+  {id:18,name:'اپلودر واقعی زیر ۱۰۰K',emoji:'🤖',desc:'ممبر واقعی از ربات‌های اخلاقی',price:'343,750',priceNum:343750,badge:'',category:'member'},
+  {id:19,name:'بازدید تک پست ۱۰۰۰',emoji:'👁️',desc:'بازدید اولترا سرعتی روی پست',price:'585',priceNum:585,badge:'',category:'view'},
+  {id:20,name:'بازدید ۵-۱۰۰ پست',emoji:'👁️',desc:'بازدید روی چند پست — اولترا سرعتی',price:'2,795',priceNum:2795,badge:'',category:'view'},
+  {id:21,name:'بازدید استوری تلگرام',emoji:'🖼️',desc:'بازدید سریع استوری',price:'6,760',priceNum:6760,badge:'',category:'view'},
+  {id:22,name:'ری‌اکشن منفی میکس',emoji:'😡',desc:'میکس ری‌اکشن منفی + بازدید رایگان',price:'3,313',priceNum:3313,badge:'',category:'view'},
+  {id:23,name:'ری‌اکشن پریمیوم میکس',emoji:'⭐',desc:'ری‌اکشن پریمیوم + بازدید رایگان',price:'3,875',priceNum:3875,badge:'',category:'view'},
+  {id:24,name:'اشتراک‌گذاری پست',emoji:'⤴️',desc:'اشتراک‌گذاری فوق سرعتی',price:'1,750',priceNum:1750,badge:'',category:'view'},
+  {id:25,name:'بوست ۱-۵ روزه',emoji:'🚀',desc:'بوست کانال با تضمین ۱-۵ روز',price:'3,575,000',priceNum:3575000,badge:'',category:'boost'},
+  {id:26,name:'بوست ۲۰-۳۰ روزه',emoji:'🚀',desc:'بوست با تضمین ۲۰-۳۰ روز — پیشنهادی',price:'15,625,000',priceNum:15625000,badge:'hot',category:'boost'},
+  {id:27,name:'یوسی پابجی ۶۰',emoji:'🎮',desc:'۶۰ یوسی پابجی موبایل',price:'81,250',priceNum:81250,badge:'پرفروش',category:'game'},
+  {id:28,name:'Royale Pass پابجی',emoji:'🏆',desc:'Royale Pass ماهانه پابجی',price:'225,000',priceNum:225000,badge:'hot',category:'game'},
+  {id:29,name:'CP کالاف ۸۰۰',emoji:'🔫',desc:'۸۰۰ سی‌پی کالاف دیوتی',price:'150,000',priceNum:150000,badge:'',category:'game'},
+  {id:30,name:'VPN 10 گیگ',emoji:'🛡️',desc:'فیلترشکن پرسرعت ۱۰ گیگ',price:'70,000',priceNum:70000,badge:'',category:'vpn'},
+  {id:31,name:'VPN 20 گیگ',emoji:'🛡️',desc:'فیلترشکن پرسرعت ۲۰ گیگ',price:'140,000',priceNum:140000,badge:'پرفروش',category:'vpn'},
+  {id:32,name:'VPN نامحدود',emoji:'♾️',desc:'فیلترشکن نامحدود — بهترین ارزش',price:'899,000',priceNum:899000,badge:'hot',category:'vpn'},
+  {id:33,name:'وایرگارد ۱ ماهه ۳۶گیگ',emoji:'🌐',desc:'وایرگارد — ۱ ماهه — ۳۶ گیگ',price:'239,000',priceNum:239000,badge:'new',category:'vpn'},
+  {id:34,name:'وایرگارد ۳ ماهه ۱۲۷گیگ',emoji:'🌐',desc:'وایرگارد — ۳ ماهه — ۱۲۷ گیگ',price:'599,000',priceNum:599000,badge:'پرفروش',category:'vpn'},
+  {id:35,name:'وایرگارد ۶ ماهه ۳۰۰گیگ',emoji:'🌐',desc:'وایرگارد — ۶ ماهه — ۳۰۰ گیگ',price:'959,000',priceNum:959000,badge:'hot',category:'vpn'},
+  {id:36,name:'فالور اینستاگرام ۱۰۰۰',emoji:'📸',desc:'۱۰۰۰ فالور واقعی ایرانی',price:'93,750',priceNum:93750,badge:'',category:'instagram'},
+  {id:37,name:'لایک اینستاگرام ۵۰۰',emoji:'❤️',desc:'۵۰۰ لایک واقعی روی پست',price:'31,250',priceNum:31250,badge:'',category:'instagram'},
+  {id:38,name:'ویو استوری اینستا ۱۰۰۰',emoji:'👁️',desc:'۱۰۰۰ بازدید استوری اینستاگرام',price:'30,420',priceNum:30420,badge:'new',category:'instagram'},
+  {id:39,name:'شماره مجازی دائمی',emoji:'📞',desc:'شماره دائمی — کشورهای مختلف',price:'150,000',priceNum:150000,badge:'',category:'number'},
+  {id:40,name:'شماره مجازی موقت',emoji:'📱',desc:'شماره موقت برای تأیید SMS',price:'18,750',priceNum:18750,badge:'پرفروش',category:'number'},
+  {id:41,name:'سرویس سفارشی',emoji:'🎯',desc:'هر اشتراک اپلیکیشن یا بازی که نیاز داری — سفارش بده',price:'متغیر',priceNum:0,badge:'new',category:'custom'},
+];
+
+let cart = [];
+let currentProduct = null;
+
+function renderProducts(filter='all') {
+  const grid = document.getElementById('productsGrid');
+  const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+  grid.innerHTML = filtered.map(p => `
+    <div class="product-card" style="animation:fadeInUp 0.5s ease both">
+      <div class="product-header">
+        <span class="product-emoji">${p.emoji}</span>
+        ${p.badge ? `<div class="product-badge ${p.badge==='new'?'new':p.badge==='hot'?'hot':'default'}">${p.badge==='hot'?'🔥 داغ':p.badge==='new'?'✨ جدید':p.badge}</div>` : ''}
+      </div>
+      <div class="product-body">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+      </div>
+      <div class="product-footer">
+        <div class="product-price">
+          <span>قیمت</span>
+          ${p.price} ${p.priceNum > 0 ? 'تومان' : ''}
+        </div>
+        <div class="product-actions">
+          ${p.priceNum > 0 ? `<button class="btn-cart-add" onclick="addToCart(${p.id})">🛒</button>` : ''}
+          <button class="btn-add" onclick="openOrder(${p.id})">سفارش</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterProducts(cat, btn) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderProducts(cat);
+  document.getElementById('products').scrollIntoView({behavior:'smooth'});
+}
+
+function openOrder(id) {
+  currentProduct = products.find(p => p.id === id);
+  document.getElementById('orderProductInfo').innerHTML = `
+    <div class="order-product">
+      <div class="order-emoji">${currentProduct.emoji}</div>
+      <div>
+        <div class="order-name">${currentProduct.name}</div>
+        <div class="order-price">${currentProduct.price} ${currentProduct.priceNum > 0 ? 'تومان' : ''}</div>
+      </div>
+    </div>`;
+  document.getElementById('orderModal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('orderModal').classList.remove('open'); }
+
+function selectPayTab(el, method) {
+  document.querySelectorAll('.pay-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const d = document.getElementById('payDetails');
+  if(method==='card') {
+    d.innerHTML = `<div class="card-info"><div style="color:var(--text-secondary);font-size:12px">شماره کارت:</div><div class="card-num">6219861921759196</div><div style="margin-top:6px;color:var(--text-secondary)">به نام: علی حسین یوسفی</div><div style="margin-top:8px;color:var(--gold);font-size:12px">⚡ بعد از واریز رسید رو در ربات بفرست</div></div>`;
+  } else if(method==='ton') {
+    d.innerHTML = `<div class="card-info"><div style="color:var(--text-secondary);font-size:12px">آدرس تون‌کیپر (TON):</div><div class="card-num" style="font-size:10px;word-break:break-all">UQCFJ2uBq42ubwT49_3yqh-x_Ado6JFiYVxKzn5tc0X6b2SI</div><div style="margin-top:8px;color:var(--gold);font-size:12px">⚠️ فقط از شبکه TON ارسال کن</div></div>`;
+  } else {
+    d.innerHTML = `<div class="card-info"><div style="color:var(--text-secondary);font-size:12px">آدرس USDT (TRC20):</div><div class="card-num" style="font-size:10px;word-break:break-all">TQDsqa6gs916BnNGi8E2DpnWNfnHuTovNc</div><div style="margin-top:8px;color:var(--gold);font-size:12px">⚠️ فقط از شبکه TRC20 ارسال کن</div></div>`;
+  }
+}
+
+function submitOrder() {
+  const contact = document.getElementById('orderContact').value;
+  if(!contact) { showToast('⚠️','آیدی تلگرامت رو وارد کن'); return; }
+  closeModal();
+  showToast('✅', `سفارش ثبت شد! به ربات هدایت میشی...`);
+  setTimeout(() => window.open('https://t.me/CyruShop_bot','_blank'), 1200);
+}
+
+function addToCart(id) {
+  const p = products.find(x => x.id === id);
+  if(!p || p.priceNum === 0) return;
+  cart.push(p);
+  updateCartBadge();
+  showToast('🛒', `${p.name} به سبد اضافه شد`);
+  renderCart();
+}
+
+function removeFromCart(idx) { cart.splice(idx,1); updateCartBadge(); renderCart(); }
+
+function renderCart() {
+  const items = document.getElementById('cartItems');
+  document.getElementById('cartCount').textContent = cart.length;
+  if(cart.length === 0) {
+    items.innerHTML = '<div class="cart-empty"><div class="cart-empty-icon">🛒</div>سبد خرید خالیه!</div>';
+    document.getElementById('cartTotal').textContent = '۰ تومان';
+    return;
+  }
+  items.innerHTML = cart.map((p,i) => `
+    <div class="cart-item">
+      <div class="ci-emoji">${p.emoji}</div>
+      <div class="ci-info"><div class="ci-name">${p.name}</div><div class="ci-price">${p.price} تومان</div></div>
+      <button class="ci-remove" onclick="removeFromCart(${i})">✕</button>
+    </div>`).join('');
+  const total = cart.reduce((s,p) => s+p.priceNum, 0);
+  document.getElementById('cartTotal').textContent = total.toLocaleString('fa') + ' تومان';
+}
+
+function updateCartBadge() {
+  document.getElementById('cartBadge').textContent = cart.length;
+  document.getElementById('cartCount').textContent = cart.length;
+}
+
+function toggleCart() {
+  document.getElementById('cartSidebar').classList.toggle('open');
+  document.getElementById('cartOverlay').classList.toggle('open');
+  renderCart();
+}
+
+function checkoutCart() {
+  if(cart.length===0){showToast('⚠️','سبد خرید خالیه');return;}
+  showToast('✅','به ربات تلگرام هدایت میشی...');
+  setTimeout(()=>window.open('https://t.me/CyruShop_bot','_blank'),1200);
+  cart=[]; updateCartBadge(); renderCart();
+}
+
+function openTelegram() { window.open('https://t.me/CyruShop_bot','_blank'); }
+
+function showToast(icon, text) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastIcon').textContent = icon;
+  document.getElementById('toastText').textContent = text;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+document.getElementById('orderModal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+renderProducts();
+</script>
+</body>
+</html>
